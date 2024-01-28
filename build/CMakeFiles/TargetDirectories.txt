@@ -1,0 +1,3 @@
+/home/edwin/Documents/GitHub/laserThingConsole/build/CMakeFiles/laserThingConsole.dir
+/home/edwin/Documents/GitHub/laserThingConsole/build/CMakeFiles/edit_cache.dir
+/home/edwin/Documents/GitHub/laserThingConsole/build/CMakeFiles/rebuild_cache.dir
