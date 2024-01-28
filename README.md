@@ -5,12 +5,18 @@ a console app that simulates a laser entering a 5 x 5 grid of spaces containing 
 # Build instructions
 
 Install CMake on whatever platform you're on
+
+
 Clone repository with Git or download zip and extract
+
 
 From cloned repository or extracted zip folder in cmd/terminal:
 
 cd build
+
 cmake ..
+
 cmake --build .
+
 
 NOTE: Depending on your build system, you may have to manually move gridPattern.txt from the build folder to wherver your build system put the binary.  
