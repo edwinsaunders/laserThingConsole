@@ -16,6 +16,7 @@ set(SOURCES
     src/setGridPattern.cpp
     src/squareParamSetup.cpp
     src/visualize.cpp
+    src/getOutputEdge.cpp
 )
 
 # Header files

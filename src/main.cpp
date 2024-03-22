@@ -5,11 +5,14 @@
 #include <array>
 #include "gridElement.hpp"
 
-//To implement:
-//Single grid mirrorConfig: change struct member variables to eliminate mirrorPresent and mirrorOrientation
-    //make gridPattern and mirrorConfig array of chars, since math needs to done with them
-//Input grid config from text file
+//Goals:
+//DONE: Single grid mirrorConfig: change struct member variables to eliminate mirrorPresent and mirrorOrientation
+//DONE:  make gridPattern and mirrorConfig array of chars, since math needs to done with them
+//DONE:  Input grid config from text file
 //user-defined grid size
+//replace vectors with arrays (not sure why i used vectors initially)
+//find out if statement on line 10 of squareParamSetup.cpp is useful
+//rename 'square' symbol to something like 'fiveSqrd'. Necessary?
 
 /*
 Get input port number
@@ -30,9 +33,9 @@ Repeat while output edge does not correspond to an exit port
 
 int main(int argc, char *argv[]) {
     //input gridPattern from text file gridPattern.txt
-    std::ifstream inputFile("gridPattern.txt");
+    std::ifstream inputFile("../gridPattern.txt");
     if (!inputFile) {
-        std::cerr << "Unable to open the file. Is it in the directory with the program?" << std::endl;
+        std::cerr << "Unable to open the grid pattern text file. Is it in the parent directory?" << std::endl;
         return 1;
     }
     char gridPattern[5][5];
@@ -85,9 +88,15 @@ int main(int argc, char *argv[]) {
     //function to print grid with all zeroes
     //printZeroGrid();
     
+    // get a value for the entrance port from the user if no command-line argument provided 
+    if (argc < 2) {
+        std::cout << "Choose an entrance port (0 thru 19): ";
+        std::cin >> entrancePort;
+    }
+    else {
+        entrancePort = atoi(argv[1]);
+    }
 
-    std::cout << "Choose an entrance port (0 thru 19): ";
-    std::cin >> entrancePort;
     std::cout << "You chose entrance port: " << entrancePort << std::endl;
 
     //take input arg from command line if desired
