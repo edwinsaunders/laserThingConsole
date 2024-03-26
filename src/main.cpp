@@ -14,6 +14,7 @@
 //replace vectors with arrays (not sure why i used vectors initially)
 //find out if statement on line 10 of squareParamSetup.cpp is useful
 //rename 'square' symbol to something like 'fiveSqrd'. Necessary?
+//generalize or remove printZeroGrid.cpp.  Is this function necessary for anything?
 
 /*
 Get input port number
