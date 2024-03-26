@@ -9,7 +9,8 @@
 //DONE: Single grid mirrorConfig: change struct member variables to eliminate mirrorPresent and mirrorOrientation
 //DONE:  make gridPattern and mirrorConfig array of chars, since math needs to done with them
 //DONE:  Input grid config from text file
-//user-defined grid size
+//ALMOST DONE: user-defined grid size 
+//      code has been generalized so that you only have to change a single variable, gridSize, in the main declarations
 //replace vectors with arrays (not sure why i used vectors initially)
 //find out if statement on line 10 of squareParamSetup.cpp is useful
 //rename 'square' symbol to something like 'fiveSqrd'. Necessary?
@@ -32,13 +33,23 @@ Repeat while output edge does not correspond to an exit port
 
 
 int main(int argc, char *argv[]) {
-    //input gridPattern from text file gridPattern.txt
+    
+    //declarations
+    const int gridSize{6};
+    gridElement square[gridSize][gridSize];
+    int entrancePort{0};
+    int exitPort;
+    int currentRow{0}, currentCol{0}, nextRow{0}, nextCol{0};
+    char gridPattern[gridSize][gridSize];
+    
+    //open gridPattern text file gridPattern.txt
     std::ifstream inputFile("../gridPattern.txt");
     if (!inputFile) {
         std::cerr << "Unable to open the grid pattern text file. Is it in the parent directory?" << std::endl;
         return 1;
-    }
-    char gridPattern[5][5];
+    }    
+    
+    //read file
     std::string line;
     int i = 0;
     while (std::getline(inputFile, line)) { 
@@ -50,43 +61,7 @@ int main(int argc, char *argv[]) {
         i++;
     }
 
-    //declare array of squares
-    gridElement square[5][5];
-    int entrancePort{0};
-    int exitPort;
-    int currentRow{0}, currentCol{0}, nextRow{0}, nextCol{0};
-    //bool mirrorPattern[5][5] = {
-    //    0, 0, 1, 0, 1,
-    //    1, 1, 0, 0, 1,
-    //    0, 0, 1, 0, 0,
-    //    1, 1, 0, 1, 0,
-    //    0, 1, 1, 0, 0
-    //};
-    //bool mirrorOrientationPattern[5][5] = {
-    //    0, 0, 1, 0, 0,
-    //    1, 1, 0, 0, 1,
-    //    0, 0, 0, 0, 0,
-    //    1, 0, 0, 1, 0,
-    //    0, 1, 1, 0, 0
-    //};
-    //trying to simplify by using a grid of chars that are either /, 0, or \;  or  maybe use a space instead of zero
-    //int gridPattern[5][5] = {
-    //    0, 0, 2, 0, 1,
-    //    2, 2, 0, 0, 2,
-    //    0, 0, 1, 0, 0,
-    //    2, 1, 0, 2, 0,
-    //    0, 2, 2, 0, 0
-    //};
-    //char gridPattern2[5][5] = {
-    //    '0', '0', '/', '0', '\\',
-    //    '/', '/', '0', '0',  '/',
-    //    '0', '0','\\', '0',  '0',
-    //    '/','\\', '0', '/',  '0',
-    //    '0', '/', '/', '0',  '0'
-    //};
     
-    //function to print grid with all zeroes
-    //printZeroGrid();
     
     // get a value for the entrance port from the user if no command-line argument provided 
     if (argc < 2) {
@@ -98,26 +73,18 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << "You chose entrance port: " << entrancePort << std::endl;
-
-    //take input arg from command line if desired
-    //if (argv[1]) {
-    //    //entrancePoint = static_cast<int>argv[1];
-    //    std::cout << "You chose entrance port: " << std::stoi(argv[1]) << std::endl;
-    //}
-    //else {
-    //    std::cout << "You did not choose an entrance point.  Using default entrance point: " << entrancePort << std::endl;
-    //}   
+ 
     
     //setup parameters based on square position (corner square, border square, ports, sides with ports etc.)
-    squareParamsSetup(square);
+    squareParamsSetup(&square[0][0], gridSize);
 
     //generate grid pattern (where are mirrors, what orientations, squares with no mirrors) (random eventually?)
-    setGridPattern(square, gridPattern);
+    setGridPattern(&square[0][0], &gridPattern[0][0], gridSize);
     
     //print grid to screen
-    visualize(square);
+    visualize(&square[0][0], gridSize);
     
-    getFirstSquare(square, entrancePort, currentRow, currentCol);    
+    getFirstSquare(&square[0][0], entrancePort, currentRow, currentCol, gridSize);    
     
     //while output edge of current square is not a port (checks 2 ports, but for squares with only one port, it checks the same port twice)
     //Calculate exit port
@@ -126,7 +93,7 @@ int main(int argc, char *argv[]) {
     while (square[currentRow][currentCol].outputEdge != square[currentRow][currentCol].sidesWithPorts[0] && square[currentRow][currentCol].outputEdge != square[currentRow][currentCol].sidesWithPorts[1]) {
         
         //function for finding next square based on pos of current square and output edge
-        getNextSquare(square, currentRow, currentCol, nextRow, nextCol);
+        getNextSquare(&square[0][0], currentRow, currentCol, nextRow, nextCol, gridSize);
         
         
         //square[nextRow][nextCol].inputPresent = 1;

@@ -3,34 +3,35 @@
 #include "gridElement.hpp"
 #include <iostream>
 
-void visualize(gridElement (&square)[5][5]) {
+void visualize(gridElement *square, int gridSize) {
 
-    std::cout << "    0  1  2  3  4" << std::endl;
-
-    for (int i = 0; i < 5; i++) //rows
+    std::cout << "    ";
+    for (int i = 0; i < gridSize; i++)
     {
-        std::cout << 19 - i << "  ";
+        std::cout << i << "  ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < gridSize; i++) //rows
+    {
+        std::cout << (gridSize * 4 - 1) - i << "  ";
         
-        for (int j = 0; j < 5; j++) //cols
+        for (int j = 0; j < gridSize; j++) //cols
         {
-            std::cout << square[i][j].mirrorConfig << "  ";
-            //switch (square[i][j].mirrorConfig)
-            //{
-            //case 1:
-            //    std::cout << "\\  ";
-            //    break;
-            //case 2:
-            //    std::cout << "/  ";
-            //    break;
-            //default:
-            //    std::cout << "0  ";
-            //    break;
-            //}
-            
+            std::cout << square[i * gridSize + j].mirrorConfig << "  ";
         }
-        std::cout << 5 + i << std::endl;
+
+        std::cout << gridSize + i << std::endl;
         //std::cout << std::endl;
     }
 
-    std::cout << "    14 13 12 11 10" << std::endl;
+    std::cout << "   ";
+    for (int i = 0; i < gridSize; i++)
+    {
+        std::cout << (gridSize * 3 - 1) - i << " ";
+    }
+    std::cout << std::endl;
+
+    //gridSize * 3 - 1
+    //std::cout << "    14 13 12 11 10" << std::endl;
 }
