@@ -3,7 +3,7 @@
 #include "gridElement.hpp"
 #include <iostream>
 
-void visualize(gridElement *square, int gridSize) {
+void visualize(gridElement *grid, int gridSize) {
 
     std::cout << "    ";
     for (int i = 0; i < gridSize; i++)
@@ -18,7 +18,7 @@ void visualize(gridElement *square, int gridSize) {
         
         for (int j = 0; j < gridSize; j++) //cols
         {
-            std::cout << square[i * gridSize + j].mirrorConfig << "  ";
+            std::cout << grid[i * gridSize + j].mirrorConfig << "  ";
         }
 
         std::cout << gridSize + i << std::endl;

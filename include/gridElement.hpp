@@ -11,6 +11,7 @@
 
 
 #include <vector>
+#include <string>
 
 struct gridElement {
     bool isBorderSquare{0};
@@ -32,17 +33,17 @@ struct gridElement {
     
 };
 
-void squareParamsSetup(gridElement *square, int gridSize);
-void visualize(gridElement *square, int gridSize);
-void setGridPattern(gridElement *square, char *gridPattern, int gridSize);
+void squareParamsSetup(gridElement *grid, int gridSize);
+void visualize(gridElement *grid, int gridSize);
+void setGridPattern(gridElement *grid, std::vector<char>& gridPattern, int gridSize);
 void printZeroGrid();
-void getFirstSquare(gridElement *square, int &entrancePort, int &currentRow, int &currentCol, int gridSize);
-void getNextSquare(gridElement *square, int &currentRow, int &currentCol, int &nextRow, int &nextCol, int gridSize);
+void getFirstSquare(gridElement *grid, int &entrancePort, int &currentRow, int &currentCol, int gridSize);
+void getNextSquare(gridElement *grid, int &currentRow, int &currentCol, int &nextRow, int &nextCol, int gridSize);
 
-//void visualize(gridElement (&square)[5][5]);
-//void setGridPattern(gridElement (&square)[5][5], char (&gridPattern)[5][5]);
+//void visualize(gridElement (&grid)[5][5]);
+//void setGridPattern(gridElement (&grid)[5][5], char (&gridPattern)[5][5]);
 //void printZeroGrid();
-//void getFirstSquare(gridElement (&square)[5][5], int &entrancePort, int &currentRow, int &currentCol);
-//void getNextSquare(gridElement (&square)[5][5], int &currentRow, int &currentCol, int &nextRow, int &nextCol);
+//void getFirstSquare(gridElement (&grid)[5][5], int &entrancePort, int &currentRow, int &currentCol);
+//void getNextSquare(gridElement (&grid)[5][5], int &currentRow, int &currentCol, int &nextRow, int &nextCol);
 
 #endif

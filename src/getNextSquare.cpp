@@ -4,27 +4,27 @@
 
 #include "gridElement.hpp"
 
-void getNextSquare(gridElement *square, int &currentRow, int &currentCol, int &nextRow, int &nextCol, int gridSize) {
-    switch (square[currentRow * gridSize + currentCol].outputEdge) {
+void getNextSquare(gridElement *grid, int &currentRow, int &currentCol, int &nextRow, int &nextCol, int gridSize) {
+    switch (grid[currentRow * gridSize + currentCol].outputEdge) {
         case 0: //if topedge is current output edge go up and set input edge of next square
             nextRow = currentRow - 1;
             nextCol = currentCol;
-            square[nextRow * gridSize + nextCol].inputEdge = square[currentRow * gridSize + currentCol].outputEdge + 2;
+            grid[nextRow * gridSize + nextCol].inputEdge = grid[currentRow * gridSize + currentCol].outputEdge + 2;
             break;
         case 1: //if right edge is current output edge go right and set input edge of next square
             nextRow = currentRow;
             nextCol = currentCol + 1;
-            square[nextRow * gridSize + nextCol].inputEdge = square[currentRow * gridSize + currentCol].outputEdge + 2;
+            grid[nextRow * gridSize + nextCol].inputEdge = grid[currentRow * gridSize + currentCol].outputEdge + 2;
             break;
         case 2: //if bottom edge is current output edge go down and set input edge of next square
             nextRow = currentRow + 1;
             nextCol = currentCol;
-            square[nextRow * gridSize + nextCol].inputEdge = square[currentRow * gridSize + currentCol].outputEdge - 2;
+            grid[nextRow * gridSize + nextCol].inputEdge = grid[currentRow * gridSize + currentCol].outputEdge - 2;
             break;
         case 3: //if left edge is current output edge go left and set input edge of next square
             nextRow = currentRow;
             nextCol = currentCol - 1;
-            square[nextRow * gridSize + nextCol].inputEdge = square[currentRow * gridSize + currentCol].outputEdge - 2;
+            grid[nextRow * gridSize + nextCol].inputEdge = grid[currentRow * gridSize + currentCol].outputEdge - 2;
             break;
     }
 }

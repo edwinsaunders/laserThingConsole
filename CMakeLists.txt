@@ -12,7 +12,6 @@ set(SOURCES
     src/main.cpp
     src/getFirstSquare.cpp
     src/getNextSquare.cpp
-    src/printZeroGrid.cpp
     src/setGridPattern.cpp
     src/squareParamSetup.cpp
     src/visualize.cpp
