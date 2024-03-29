@@ -28,11 +28,38 @@ int main(int argc, char *argv[]) {
     int exitPort;
     int currentRow{0}, currentCol{0}, nextRow{0}, nextCol{0};
 
+
     //vector implementation of gridPattern so it can change dynamically at runtime
+
     std::vector<char> gridPattern;
     
+
+    //have user choose which text file to use as input
+    //if no file path provided in CLI, use default, else use argv[2];
+
+    std::string filePath = "../gridPattern.txt";
+    if (argc >= 2)
+    {
+        filePath = argv[1];
+    }
+    else 
+    {
+        std::cout << "No path entered.  Using default text file." << std::endl;
+    }
+    
+    //std::cout << "Enter a path to a file: ";
+    //if (std::cin >> filePath)
+    //{
+    //    std::cout << "You entered: " << filePath << std::endl;
+    //} 
+    //else 
+    //{
+    //    std::cout << "No path entered.  Using default text file." << std::endl;
+    //}
+    
+    
     //open grid pattern text file gridPattern.txt
-    std::ifstream inputFile("../gridPattern.txt");
+    std::ifstream inputFile(filePath);
     if (!inputFile) {
         std::cerr << "Unable to open the grid pattern text file. Is it in the parent directory?" << std::endl;
         return 1;
@@ -59,29 +86,44 @@ int main(int argc, char *argv[]) {
     //declare array of grid elements
 
     gridElement grid[gridSize][gridSize];
-    
+
+
+    //setup parameters based on square position (corner square, border square, ports, sides with ports etc.)
+
+    squareParamsSetup(&grid[0][0], gridSize);
+
+
+    //generate grid pattern (where are mirrors, what orientations, squares with no mirrors) (random eventually?)
+
+    setGridPattern(&grid[0][0], gridPattern, gridSize);
+
+    //welcome message
+    // insert a couple line breaks
+    std::cout << std::endl << "Welcome to this laser grid sim thing!\n" << std::endl;
+
+
+    //print grid to screen
+
+    visualize(&grid[0][0], gridSize);
+
 
     // get a value for the entrance port from the user if no command-line argument provided 
 
-    if (argc < 2) {
-        std::cout << "Choose an entrance port (0 thru " << gridSize * 4 - 1 << "): ";
-        std::cin >> entrancePort;
+    if (argc >= 3) {
+        entrancePort = atoi(argv[2]);
     }
     else {
-        entrancePort = atoi(argv[1]);
+        std::cout << "Choose an entrance port (0 thru " << gridSize * 4 - 1 << "): ";
+        std::cin >> entrancePort;
+        std::cout << std::endl;
     }
 
-    std::cout << "You chose entrance port: " << entrancePort << std::endl;
+    //std::cout << "You chose entrance port: " << entrancePort << std::endl;
  
     
-    //setup parameters based on square position (corner square, border square, ports, sides with ports etc.)
-    squareParamsSetup(&grid[0][0], gridSize);
-
-    //generate grid pattern (where are mirrors, what orientations, squares with no mirrors) (random eventually?)
-    setGridPattern(&grid[0][0], gridPattern, gridSize);
     
-    //print grid to screen
-    visualize(&grid[0][0], gridSize);
+    
+    
     
     getFirstSquare(&grid[0][0], entrancePort, currentRow, currentCol, gridSize);    
     
@@ -112,7 +154,7 @@ int main(int argc, char *argv[]) {
     }   
     
     //Print exit port to screen
-    std::cout << "Your exit port is: " << exitPort << std::endl;    
+    std::cout << "Your exit port is: " << exitPort << std::endl << std::endl;    
 
     return 0;
 }
